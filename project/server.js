@@ -1,16 +1,20 @@
-const express = require('express');
+const express = require("express");
+const path = require("path");
+
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// Servir les fichiers statiques depuis le dossier "public"
-app.use(express.static('public'));
+// Données statiques (index.html dans public/)
+app.use(express.static(path.join(__dirname, "public")));
 
-// Route principale
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+// API pour récupérer le Selfie Code
+app.get("/api/getSelfieCode", (req, res) => {
+    // Simulez un selfie code pour le test
+    const selfieCode = "SELFIE12345"; // Remplacez par une logique réelle
+    res.json({ code: selfieCode });
 });
 
-// Démarrer le serveur
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+// Lancer le serveur
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
